@@ -113,7 +113,7 @@ public class PlaceOrderFormController {
 //                        ResultSet rst = pstm.executeQuery();
 //                        rst.next();
                         CustomerDAO customerDAO=new CustomerDAOImpl();
-                        CustomerDTO customerDTO = customerDAO.searchCustomer(newValue);
+                        CustomerDTO customerDTO = customerDAO.search(newValue);
 
                         //CustomerDTO customerDTO = new CustomerDTO(newValue + "", rst.getString("name"), rst.getString("address"));
 
@@ -151,7 +151,7 @@ public class PlaceOrderFormController {
 //                    rst.next();
 //                    ItemDTO item = new ItemDTO(newItemCode + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
                     ItemDAO itemDAO=new ItemDAOImpl();
-                    ItemDTO itemDTO = itemDAO.searchItem(newItemCode);
+                    ItemDTO itemDTO = itemDAO.search(newItemCode);
                     txtDescription.setText(itemDTO.getDescription());
                     txtUnitPrice.setText(itemDTO.getUnitPrice().setScale(2).toString());
 
@@ -200,7 +200,7 @@ public class PlaceOrderFormController {
 //        pstm.setString(1, code);
 //        return pstm.executeQuery().next();
         ItemDAOImpl itemDAO=new ItemDAOImpl();
-        return itemDAO.existItem(code);
+        return itemDAO.exist(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
@@ -209,7 +209,7 @@ public class PlaceOrderFormController {
 //        pstm.setString(1, id);
 //        return pstm.executeQuery().next();
         CustomerDAOImpl customerDAO=new CustomerDAOImpl();
-        return customerDAO.existCustomer(id);
+        return customerDAO.exist(id);
     }
 
     public String generateNewOrderId() {
@@ -220,7 +220,7 @@ public class PlaceOrderFormController {
 //
 //            return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";
             OrderDAOImpl orderDAO= new OrderDAOImpl();
-            return orderDAO.generateNewOrderId();
+            return orderDAO.generateNewId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
         } catch (ClassNotFoundException e) {
@@ -236,7 +236,7 @@ public class PlaceOrderFormController {
 //            ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
 
             CustomerDAOImpl customerDAO=new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allCustomers = customerDAO.getAllCustomers();
+            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
 
 //            while (rst.next()) {
 //                cmbCustomerId.getItems().add(rst.getString("id"));
@@ -263,7 +263,7 @@ public class PlaceOrderFormController {
 //            }
 
             ItemDAOImpl itemDAO=new ItemDAOImpl();
-            ArrayList<ItemDTO> allItem = itemDAO.getAllItem();
+            ArrayList<ItemDTO> allItem = itemDAO.getAll();
             for (ItemDTO item : allItem) {
                 cmbItemCode.getItems().add(item.getCode());
             }

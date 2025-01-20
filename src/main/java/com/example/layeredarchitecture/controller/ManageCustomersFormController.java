@@ -70,7 +70,7 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try {
             CustomerDAO customerDAO = new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allCustomers = customerDAO.getAllCustomers();
+            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
 
             for (CustomerDTO customer : allCustomers) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
@@ -153,7 +153,7 @@ public class ManageCustomersFormController {
                 }
 
                 CustomerDAO customerDAO = new CustomerDAOImpl();
-                customerDAO.saveCustomer(id, name, address);
+                customerDAO.save(id, name, address);
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException | ClassNotFoundException e) {
@@ -168,7 +168,7 @@ public class ManageCustomersFormController {
                 }
 
                 CustomerDAO customerDAO = new CustomerDAOImpl();
-                customerDAO.updateCustomer(new CustomerDTO(id, name, address));
+                customerDAO.update(new CustomerDTO(id, name, address));
 
                 CustomerTM selectedCustomer = tblCustomers.getSelectionModel().getSelectedItem();
                 selectedCustomer.setName(name);
@@ -189,7 +189,7 @@ public class ManageCustomersFormController {
 //        pstm.setString(1, id);
 //        return pstm.executeQuery().next();
         CustomerDAO customerDAO = new CustomerDAOImpl();
-        return customerDAO.existCustomer(id);
+        return customerDAO.exist(id);
     }
 
 
@@ -205,7 +205,7 @@ public class ManageCustomersFormController {
 //            pstm.setString(1, id);
 //            pstm.executeUpdate();
             CustomerDAO customerDAO=new CustomerDAOImpl();
-            customerDAO.deleteCustomer(id);
+            customerDAO.delete(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
