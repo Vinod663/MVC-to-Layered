@@ -1,4 +1,4 @@
-package com.example.layeredarchitecture.DAO;
+package com.example.layeredarchitecture.DAO.custom;
 
 import com.example.layeredarchitecture.model.ItemDTO;
 

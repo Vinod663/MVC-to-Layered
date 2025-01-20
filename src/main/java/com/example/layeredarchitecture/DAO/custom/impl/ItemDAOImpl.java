@@ -1,6 +1,7 @@
-package com.example.layeredarchitecture.DAO;
+package com.example.layeredarchitecture.DAO.custom.impl;
 
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.DAO.SQLUtil;
+import com.example.layeredarchitecture.DAO.custom.ItemDAO;
 import com.example.layeredarchitecture.model.ItemDTO;
 
 import java.sql.*;
@@ -14,7 +15,7 @@ public class ItemDAOImpl implements ItemDAO {
 //        Statement stm = connection.createStatement();
 //        ResultSet rst = stm.executeQuery("SELECT * FROM Item");
 
-        ResultSet rst=SQLUtil.execute("SELECT * FROM Item");
+        ResultSet rst= SQLUtil.execute("SELECT * FROM Item");
 
         ArrayList<ItemDTO> items = new ArrayList<>();
         while (rst.next()) {

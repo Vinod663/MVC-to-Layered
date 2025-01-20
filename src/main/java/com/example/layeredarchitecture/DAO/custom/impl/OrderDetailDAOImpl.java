@@ -1,14 +1,12 @@
-package com.example.layeredarchitecture.DAO;
+package com.example.layeredarchitecture.DAO.custom.impl;
 
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.DAO.SQLUtil;
+import com.example.layeredarchitecture.DAO.custom.OrderDetailDAO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 
-public class OrderDetailDAOImpl {
+public class OrderDetailDAOImpl implements OrderDetailDAO {
     public int setOrderDetailValue(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
         /*Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
