@@ -1,10 +1,11 @@
 package com.example.layeredarchitecture.DAO.custom;
 
 import com.example.layeredarchitecture.DAO.CrudDAO;
-import com.example.layeredarchitecture.model.OrderDetailDTO;
+import com.example.layeredarchitecture.dto.OrderDetailDTO;
+import com.example.layeredarchitecture.entity.OrderDetail;
 
 import java.sql.SQLException;
 
-public interface OrderDetailDAO extends CrudDAO<OrderDetailDTO> {
-    int setOrderDetailValue(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException;
+public interface OrderDetailDAO extends CrudDAO<OrderDetail> {
+    int setOrderDetailValue(OrderDetail detail, String orderId) throws SQLException, ClassNotFoundException;
 }

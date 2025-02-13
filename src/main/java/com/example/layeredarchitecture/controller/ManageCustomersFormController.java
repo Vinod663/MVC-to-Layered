@@ -1,8 +1,9 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.DAO.custom.CustomerDAO;
-import com.example.layeredarchitecture.DAO.custom.impl.CustomerDAOImpl;
-import com.example.layeredarchitecture.model.CustomerDTO;
+import com.example.layeredarchitecture.bo.BOFactory;
+import com.example.layeredarchitecture.bo.CustomerBO;
+import com.example.layeredarchitecture.bo.impl.CustomerBOImpl;
+import com.example.layeredarchitecture.dto.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -38,6 +39,8 @@ public class ManageCustomersFormController {
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
 
+    CustomerBO customerBO= (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOType.CUSTOMER);
+
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -69,8 +72,8 @@ public class ManageCustomersFormController {
         tblCustomers.getItems().clear();
         /*Get all customers*/
         try {
-            CustomerDAO customerDAO = new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
+            //CustomerBO customerBO = new CustomerBOImpl();
+            ArrayList<CustomerDTO> allCustomers = customerBO.getAll();
 
             for (CustomerDTO customer : allCustomers) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
@@ -152,8 +155,8 @@ public class ManageCustomersFormController {
                     return; // Stop further execution
                 }
 
-                CustomerDAO customerDAO = new CustomerDAOImpl();
-                customerDAO.save(id, name, address);
+               // CustomerBO customerBO = new CustomerBOImpl();
+                customerBO.save(id, name, address);
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException | ClassNotFoundException e) {
@@ -167,8 +170,8 @@ public class ManageCustomersFormController {
                     return; // Stop further execution
                 }
 
-                CustomerDAO customerDAO = new CustomerDAOImpl();
-                customerDAO.update(new CustomerDTO(id, name, address));
+                //CustomerBO customerBO = new CustomerBOImpl();
+                customerBO.update(new CustomerDTO(id, name, address));
 
                 CustomerTM selectedCustomer = tblCustomers.getSelectionModel().getSelectedItem();
                 selectedCustomer.setName(name);
@@ -188,8 +191,8 @@ public class ManageCustomersFormController {
 //        PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
 //        pstm.setString(1, id);
 //        return pstm.executeQuery().next();
-        CustomerDAO customerDAO = new CustomerDAOImpl();
-        return customerDAO.exist(id);
+        //CustomerBO customerBO = new CustomerBOImpl();
+        return customerBO.exist(id);
     }
 
 
@@ -204,8 +207,8 @@ public class ManageCustomersFormController {
 //            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
 //            pstm.setString(1, id);
 //            pstm.executeUpdate();
-            CustomerDAO customerDAO=new CustomerDAOImpl();
-            customerDAO.delete(id);
+            //CustomerBO customerBO=new CustomerBOImpl();
+            customerBO.delete(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
@@ -229,8 +232,8 @@ public class ManageCustomersFormController {
 //            } else {
 //                return "C00-001";
 //            }
-            CustomerDAO customerDAO=new CustomerDAOImpl();
-            return customerDAO.generateNewId();
+           // CustomerBO customerBO=new CustomerBOImpl();
+            return customerBO.generateNewId();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();

@@ -2,13 +2,16 @@ package com.example.layeredarchitecture.DAO.custom.impl;
 
 import com.example.layeredarchitecture.DAO.SQLUtil;
 import com.example.layeredarchitecture.DAO.custom.OrderDetailDAO;
-import com.example.layeredarchitecture.model.OrderDetailDTO;
+import com.example.layeredarchitecture.dto.OrderDetailDTO;
+import com.example.layeredarchitecture.entity.OrderDetail;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
-    public int setOrderDetailValue(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
+
+    @Override
+    public int setOrderDetailValue(OrderDetail detail, String orderId) throws SQLException, ClassNotFoundException {
         /*Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
 
@@ -24,7 +27,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-    public ArrayList<OrderDetailDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<OrderDetail> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
@@ -34,12 +37,12 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-    public void save(OrderDetailDTO DTO) throws SQLException, ClassNotFoundException {
+    public void save(OrderDetail orderDetail) throws SQLException, ClassNotFoundException {
 
     }
 
     @Override
-    public void update(OrderDetailDTO DTO) throws SQLException, ClassNotFoundException {
+    public void update(OrderDetail orderDetail) throws SQLException, ClassNotFoundException {
 
     }
 
@@ -59,7 +62,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-    public OrderDetailDTO search(String newValue) throws SQLException, ClassNotFoundException {
+    public OrderDetail search(String newValue) throws SQLException, ClassNotFoundException {
         return null;
     }
 }

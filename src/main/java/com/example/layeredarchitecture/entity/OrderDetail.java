@@ -1,19 +1,19 @@
-package com.example.layeredarchitecture.model;
+package com.example.layeredarchitecture.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 
 
-public class OrderDetailDTO implements Serializable {
+public class OrderDetail implements Serializable {
     private String itemCode;
     private int qty;
     private BigDecimal unitPrice;
 
-    public OrderDetailDTO() {
+    public OrderDetail() {
     }
 
-    public OrderDetailDTO(String itemCode, int qty, BigDecimal unitPrice) {
+    public OrderDetail(String itemCode, int qty, BigDecimal unitPrice) {
         this.itemCode = itemCode;
         this.qty = qty;
         this.unitPrice = unitPrice;

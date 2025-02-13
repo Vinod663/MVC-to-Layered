@@ -2,14 +2,15 @@ package com.example.layeredarchitecture.DAO.custom.impl;
 
 import com.example.layeredarchitecture.DAO.SQLUtil;
 import com.example.layeredarchitecture.DAO.custom.OrderDAO;
-import com.example.layeredarchitecture.model.OrderDTO;
+import com.example.layeredarchitecture.dto.OrderDTO;
+import com.example.layeredarchitecture.entity.Order;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class OrderDAOImpl implements OrderDAO {
     @Override
-    public ArrayList<OrderDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Order> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
@@ -19,12 +20,12 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void save(OrderDTO DTO) throws SQLException, ClassNotFoundException {
+    public void save(Order order) throws SQLException, ClassNotFoundException {
 
     }
 
     @Override
-    public void update(OrderDTO DTO) throws SQLException, ClassNotFoundException {
+    public void update(Order order) throws SQLException, ClassNotFoundException {
 
     }
 
@@ -49,7 +50,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public OrderDTO search(String newValue) throws SQLException, ClassNotFoundException {
+    public Order search(String newValue) throws SQLException, ClassNotFoundException {
         return null;
     }
 
@@ -67,7 +68,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public int setOrderValues(OrderDTO orderDTO) throws SQLException, ClassNotFoundException {
+    public int setOrderValues(Order order) throws SQLException, ClassNotFoundException {
         /*Connection connection = null;
         connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement stm = connection.prepareStatement("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)");
@@ -77,8 +78,8 @@ public class OrderDAOImpl implements OrderDAO {
         return stm.executeUpdate();*/
 
         return SQLUtil.execute("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)",
-                orderDTO.getOrderId(),
-                Date.valueOf(orderDTO.getOrderDate()),
-                orderDTO.getCustomerId().toString());
+                order.getOrderId(),
+                Date.valueOf(order.getOrderDate()),
+                order.getCustomerId().toString());
     }
 }

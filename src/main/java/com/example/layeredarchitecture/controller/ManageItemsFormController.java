@@ -1,8 +1,9 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.DAO.custom.ItemDAO;
-import com.example.layeredarchitecture.DAO.custom.impl.ItemDAOImpl;
-import com.example.layeredarchitecture.model.ItemDTO;
+import com.example.layeredarchitecture.bo.BOFactory;
+import com.example.layeredarchitecture.bo.ItemBO;
+import com.example.layeredarchitecture.bo.impl.ItemBOImpl;
+import com.example.layeredarchitecture.dto.ItemDTO;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -37,6 +38,7 @@ public class ManageItemsFormController {
     public TextField txtUnitPrice;
     public JFXButton btnAddNewItem;
 
+    ItemBO itemBO = (ItemBO) BOFactory.getInstance().getBO(BOFactory.BOType.ITEM);
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
         tblItems.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -71,8 +73,8 @@ public class ManageItemsFormController {
         tblItems.getItems().clear();
         try {
             /*Get all items*/
-            ItemDAO itemDAO=new ItemDAOImpl();
-            ArrayList<ItemDTO> allItems = itemDAO.getAll();
+            //ItemBO itemBO=new ItemBOImpl();
+            ArrayList<ItemDTO> allItems = itemBO.getAll();
             for(ItemDTO itemDTO : allItems) {
                 tblItems.getItems().add(new ItemTM(itemDTO.getCode(),itemDTO.getDescription(),itemDTO.getUnitPrice(),itemDTO.getQtyOnHand()));
             }
@@ -141,8 +143,8 @@ public class ManageItemsFormController {
 //            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
 //            pstm.setString(1, code);
 //            pstm.executeUpdate();
-            ItemDAO itemDAO=new ItemDAOImpl();
-            itemDAO.delete(code);
+            //ItemBO itemBO=new ItemBOImpl();
+            itemBO.delete(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -189,8 +191,8 @@ public class ManageItemsFormController {
 //                pstm.setBigDecimal(3, unitPrice);
 //                pstm.setInt(4, qtyOnHand);
 //                pstm.executeUpdate();
-                ItemDAO itemDAO=new ItemDAOImpl();
-                itemDAO.save(new ItemDTO(code,description,unitPrice,qtyOnHand));
+                //ItemBO itemBO=new ItemBOImpl();
+                itemBO.save(new ItemDTO(code,description,unitPrice,qtyOnHand));
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 
             } catch (SQLException e) {
@@ -212,8 +214,8 @@ public class ManageItemsFormController {
 //                pstm.setInt(3, qtyOnHand);
 //                pstm.setString(4, code);
 //                pstm.executeUpdate();
-                ItemDAO itemDAO=new ItemDAOImpl();
-                itemDAO.update(new ItemDTO(code,description,unitPrice,qtyOnHand));
+                //ItemBO itemBO=new ItemBOImpl();
+                itemBO.update(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
@@ -236,8 +238,8 @@ public class ManageItemsFormController {
 //        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
 //        pstm.setString(1, code);
 //        return pstm.executeQuery().next();
-        ItemDAO itemDAO=new ItemDAOImpl();
-        return itemDAO.exist(code);
+        //ItemBO itemBO=new ItemBOImpl();
+        return itemBO.exist(code);
     }
 
 
@@ -252,8 +254,8 @@ public class ManageItemsFormController {
 //            } else {
 //                return "I00-001";
 //            }
-            ItemDAO itemDAO=new ItemDAOImpl();
-            return itemDAO.generateNewId();
+           // ItemBO itemBO=new ItemBOImpl();
+            return itemBO.generateNewId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
